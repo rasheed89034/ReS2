@@ -1,49 +1,27 @@
-# from typing import TypedDict, Optional
-# from operator import add
-# from typing import Annotated
-
-# # Yeh humari Shared Memory hai jo teeno agents use karenge
-# class AgentState(TypedDict):
-#     # 1. User Input
-#     user_prompt: str
-    
-#     # 2. Architect's Output
-#     architecture_plan: Optional[str]
-#     folder_structure: Optional[dict]
-#     pydantic_schemas: Optional[str]
-    
-#     # 3. Developer's Output
-#     generated_code: Optional[str]
-    
-#     # 4. Tester's Output
-#     validation_feedback: Optional[str]
-#     test_passed: bool
-    
-#     # 5. System Controls (Infinite loop se bachne ke liye)
-#     iterations: int
-#     error_logs: Annotated[list[str], add] # Sare errors ki history yahan add hoti jayegi
-
-
-from typing import TypedDict, Optional
 from operator import add
-from typing import Annotated
+from typing import Annotated, TypedDict, Optional, List
+from pydantic import BaseModel, Field
 
 class AgentState(TypedDict):
-    # 1. User Input
     user_prompt: str
-    
-    # 2. Architect's Output
     architecture_plan: Optional[str]
     folder_structure: Optional[dict]
-    pydantic_schemas: Optional[str]
-    
-    # 3. Developer's Output
-    generated_code: Optional[str]
-    
-    # 4. Tester's Output
+    generated_code: Optional[dict]
     validation_feedback: Optional[str]
     test_passed: bool
-    
-    # 5. System Controls
     iterations: int
     error_logs: Annotated[list[str], add]
+
+# Yeh dono classes zaroori hain!
+class FileContent(BaseModel):
+    file_path: str = Field(
+        description="Exact path and filename from the architecture, e.g., 'src/main.py', 'public/index.html', or 'app/api.go'"
+    )
+    code_content: str = Field(
+        description="The complete, functional source code for this file written in the appropriate programming language."
+    )
+
+class DeveloperOutput(BaseModel):
+    files: List[FileContent] = Field(
+        description="List of all required files along with their complete generated source code."
+    )
