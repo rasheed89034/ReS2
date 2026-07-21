@@ -1,15 +1,44 @@
-import os
-from dotenv import load_dotenv
-# Naya import: Google Generative AI ke liye
-from langchain_google_genai import ChatGoogleGenerativeAI 
-from langchain_core.messages import SystemMessage, HumanMessage
-from backend.state import AgentState
+# import os
+# from dotenv import load_dotenv
+# # Naya import: Google Generative AI ke liye
+# from langchain_google_genai import ChatGoogleGenerativeAI 
+# from langchain_core.messages import SystemMessage, HumanMessage
+# from backend.state import AgentState
 
-# Yeh command .env file se GOOGLE_API_KEY load karegi
+# # Yeh command .env file se GOOGLE_API_KEY load karegi
+# load_dotenv() 
+
+# # Ab hum OpenAI ki jagah Gemini (Google) ka model use kar rahe hain
+# llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+
+
+
+
+
+
+import os
+import json
+import streamlit as st
+from dotenv import load_dotenv
+
+# 1. Google ki jagah OpenAI ka import
+from langchain_openai import ChatOpenAI 
+from langchain_core.messages import SystemMessage, HumanMessage
+from backend.state import AgentState, DeveloperOutput
+
+# Local testing ke liye .env load karein
 load_dotenv() 
 
-# Ab hum OpenAI ki jagah Gemini (Google) ka model use kar rahe hain
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+# 2. OpenAI API Key ko Streamlit Secrets se load karein
+if "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
+# Agar key nahi milti toh error throw karein
+if "OPENAI_API_KEY" not in os.environ:
+    raise ValueError("API Key nahi mili! Streamlit secrets ya .env check karein.")
+
+# 3. LLM Initialization (ChatGPT model set karein)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 # ==========================================
 # 📐 AGENT 1: THE ARCHITECT
