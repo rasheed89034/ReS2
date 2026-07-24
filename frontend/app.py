@@ -21,6 +21,14 @@ selected_module = st.sidebar.radio(
 )
 st.sidebar.divider()
 
+with st.sidebar:
+  st.markdown("---")
+  st.markdown("### 👨‍💻 Developed By")
+  st.markdown("**Rasheed Ahmad**")
+  st.markdown("🤖 AI Student @ COMSATS University Islamabad")
+  st.markdown("💻 Machine Learning Engineer & Backend Developer(FastAPI)")
+  st.markdown("---")
+
 # --- MAIN SCREEN HEADER ---
 st.title("🚀 Project Workspace")
 
