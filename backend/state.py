@@ -12,7 +12,7 @@ class AgentState(TypedDict):
     iterations: int
     error_logs: Annotated[list[str], add]
 
-# Yeh dono classes zaroori hain!
+
 class FileContent(BaseModel):
     file_path: str = Field(
         description="Exact path and filename from the architecture, e.g., 'src/main.py', 'public/index.html', or 'app/api.go'"
