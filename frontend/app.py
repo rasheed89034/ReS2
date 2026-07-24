@@ -26,7 +26,6 @@ with st.sidebar:
   st.markdown("**Rasheed Ahmad**")
   st.markdown("🤖 AI Student @ COMSATS University Islamabad")
   st.markdown("💻 Machine Learning Engineer & Backend Developer(FastAPI)")
-  st.markdown("---")
 st.sidebar.divider()
 
 
