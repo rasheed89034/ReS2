@@ -5,20 +5,19 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from backend.state import AgentState
 
-# Yeh command .env file se GOOGLE_API_KEY load karegi
+load GOOGLE_API_KEY 
 load_dotenv() 
 
-# Ab hum OpenAI ki jagah Gemini (Google) ka model use kar rahe hain
+
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
 
 
-# ==========================================
-# 📐 AGENT 1: THE ARCHITECT
-# ==========================================
+# AGENT 1: THE ARCHITECT
+
 def architect_node(state: AgentState):
     user_prompt = state.get("user_prompt", "")
     
-    # System Prompt: Architect ko uski duty samjhana
+    
     sys_msg = SystemMessage(content="""
     You are an expert Software Architect. 
     Analyze the user's project idea.
@@ -28,15 +27,15 @@ def architect_node(state: AgentState):
     
     hum_msg = HumanMessage(content=f"Project Idea: {user_prompt}")
     
-    # LLM ko call karna
+    # LLM calling 
     response = llm.invoke([sys_msg, hum_msg])
     
-    # State update karna (Sirf architecture_plan update hoga)
+    # State update 
     return {"architecture_plan": response.content}
 
-# ==========================================
-# 💻 AGENT 2: THE DEVELOPER
-# ==========================================
+
+# AGENT 2: THE DEVELOPER
+
 def developer_node(state: AgentState):
     user_prompt = state.get("user_prompt", "")
     plan = state.get("architecture_plan", "")
@@ -57,12 +56,12 @@ def developer_node(state: AgentState):
     
     response = llm.invoke([sys_msg, hum_msg])
     
-    # State update karna (Generated code save hoga)
+  
     return {"generated_code": response.content}
 
-# ==========================================
-# 🧪 AGENT 3: THE TESTER
-# ==========================================
+
+# AGENT 3: THE TESTER
+
 def tester_node(state: AgentState):
     code = state.get("generated_code", "")
     current_iterations = state.get("iterations", 0)
