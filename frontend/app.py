@@ -19,7 +19,6 @@ selected_module = st.sidebar.radio(
     "Select View:",
     ["📐 Architecture", "💻 Code", "🧪 Testing"]
 )
-st.sidebar.divider()
 
 with st.sidebar:
   st.markdown("---")
@@ -28,6 +27,9 @@ with st.sidebar:
   st.markdown("🤖 AI Student @ COMSATS University Islamabad")
   st.markdown("💻 Machine Learning Engineer & Backend Developer(FastAPI)")
   st.markdown("---")
+st.sidebar.divider()
+
+
 
 # --- MAIN SCREEN HEADER ---
 st.title("🚀 Project Workspace")
