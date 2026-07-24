@@ -2,13 +2,11 @@ from langgraph.graph import StateGraph, END
 from backend.state import AgentState
 from backend.agents import architect_node, developer_node, tester_node
 
-# ==========================================
 # ROUTING LOGIC (The Feedback Loop)
-# ==========================================
+
 def tester_router(state: AgentState):
-    """
-    This function decides what happens after the Tester checks the code.
-    """
+    # This function decides what happens after the Tester checks the code.
+    
     passed = state.get("test_passed", False)
     iterations = state.get("iterations", 0)
     
@@ -23,10 +21,10 @@ def tester_router(state: AgentState):
     # Condition 3: Code failed, send back to Developer to fix it.
     return "continue"
 
-# ==========================================
+
 # GRAPH CONSTRUCTION
-# ==========================================
-# 1. Initialize the graph with our shared memory
+
+
 workflow = StateGraph(AgentState)
 
 # 2. Add our agents as nodes in the graph
@@ -44,8 +42,8 @@ workflow.add_conditional_edges(
     "tester",
     tester_router,
     {
-        "continue": "developer", # Go back to Developer
-        "end": END               # Finish the process
+        "continue": "developer",
+        "end": END              
     }
 )
 
