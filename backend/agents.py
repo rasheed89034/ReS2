@@ -5,7 +5,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from backend.state import AgentState
 
-load GOOGLE_API_KEY 
+# load GOOGLE_API_KEY 
 load_dotenv() 
 
 
